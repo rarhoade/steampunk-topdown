@@ -44,6 +44,9 @@ TagManager:
   - name: Leg
     uniqueID: 3357816645
     locked: 0
+  - name: Pant
+    uniqueID: 1804691777
+    locked: 0
   - name: Body
     uniqueID: 1031234849
     locked: 0

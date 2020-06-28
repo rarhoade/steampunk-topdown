@@ -23,19 +23,26 @@ public class EquipmentSpriteController : MonoBehaviour
 		else if((int)item.EquipmentType == 2){
             //lower
             UpdateLowerBodySprite(item.SpriteSet[0]);
+            UpdateLegSprites(item.SpriteSet[1], item.SpriteSet[2]);
 		}
 		else if((int)item.EquipmentType == 3){
-            //boots/legs
-            UpdateLegSprites(item.SpriteSet[0]);
+            //gloves
+            UpdateLegSprites(item.SpriteSet[0], item.SpriteSet[0]);
 		}
     }
 
     public void UnequipItem(EquippableItem item){
         switch((int)item.EquipmentType){
             case 1:
+                //chest
                 UpdateUpperBodySprite(null);
                 break;
+            case 2:
+                UpdateLowerBodySprite();
+                UpdateLegSprites();
+                break;
             case 3:
+                //gloves
                 UpdateUpperBodySprite(null);
                 break;
             default:
@@ -46,12 +53,12 @@ public class EquipmentSpriteController : MonoBehaviour
         UpperBody.sprite = sprite;
     }
 
-    public void UpdateLowerBodySprite(Sprite sprite){
+    public void UpdateLowerBodySprite(Sprite sprite=null){
         LowerBody.sprite = sprite;
     }
 
-    public void UpdateLegSprites(Sprite Leg){
-        LeftLeg.sprite = Leg;
-        RightLeg.sprite = Leg;
+    public void UpdateLegSprites(Sprite rightLeg=null, Sprite leftLeg=null){
+        LeftLeg.sprite = rightLeg;
+        RightLeg.sprite = leftLeg;
     }
 }
