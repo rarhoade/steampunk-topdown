@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 31288c3b27c89ce4a90b945bc3585a1a, type: 3}
   m_Name: FireBall
-  m_EditorClassIdentifier: Assembly-CSharp::ActiveSkill
+  m_EditorClassIdentifier: 
   SkillName: FireBall
-  Icon: {fileID: 4413741173270779904, guid: 04199c88859dfa44dab8b3c9f184d85e, type: 3}
+  Icon: {fileID: 1315633138336917413, guid: 04199c88859dfa44dab8b3c9f184d85e, type: 3}
   PreReqSkills: []
   ScaleValue: 0.5
   BaseDamage: 10
   dropDown: 2
+  fireBallProj: {fileID: 3369136520040434821, guid: a7c478203014db84ab9027f724510757,
+    type: 3}

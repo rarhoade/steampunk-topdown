@@ -16,14 +16,13 @@ public class PlayerCombat : MonoBehaviour
     public static List<SkillAction> SkillSlots;
 
     private int skillSlotSize = 4;
-    void Start(){
+    void Awake(){
         rb = GetComponent<Rigidbody2D>();
         c = GetComponent<Character>();
-        SkillSlots = new List<SkillAction>();
+        SkillSlots = new List<SkillAction>(skillSlotSize);
         for(int i = 0; i < skillSlotSize; i++){
             SkillSlots.Add(null);
         }
-        SkillSlots[0] += FireBallBlast;
     }
     // Start is called before the first frame update
     void Update()
@@ -59,9 +58,11 @@ public class PlayerCombat : MonoBehaviour
         weaponAnimator = newAnimator;
     }
 
-    void FireBallBlast(Transform shot){
-        Instantiate(sampleSkill, shot.transform.position, shot.rotation).
-            GetComponent<ProjectileSkill>().
-            Shoot(c.GetPlayerNumber());
+
+    public void RegisterSkill(SkillAction NewAction, int slot){
+        //get rid of old skill
+        SkillSlots[slot] -= SkillSlots[slot];
+        //register new skill
+        SkillSlots[slot] += NewAction;
     }
 }

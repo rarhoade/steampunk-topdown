@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class ProjectileSkill : MonoBehaviour
+public class Projectile: MonoBehaviour
 {
     public float BaseDamage = 0f;
     public float ProjectileVelocity;
@@ -18,7 +16,7 @@ public class ProjectileSkill : MonoBehaviour
         yield return null;
     }
 
-    public virtual void Shoot(int playerIdx){
+    public virtual void Shoot(int playerIdx = 0){
         playerNumber = playerIdx;
         storedDamage = ReferenceSkill.BaseDamage + 
             GameHandler.Instance.FetchCharStat(playerNumber, ReferenceSkill.GetStatIdx()) 

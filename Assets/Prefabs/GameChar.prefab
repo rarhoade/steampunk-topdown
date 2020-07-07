@@ -551,10 +551,11 @@ MonoBehaviour:
     BaseValue: 0
   Inventory: {fileID: 0}
   EquipmentPanel: {fileID: 0}
+  SkillWindow: {fileID: 0}
   craftingWindow: {fileID: 0}
   statPanel: {fileID: 0}
   itemTooltip: {fileID: 0}
-  draggableItem: {fileID: 0}
+  draggableIcon: {fileID: 0}
   dropItemArea: {fileID: 0}
   reallyDropItemDialog: {fileID: 0}
   itemSaveManager: {fileID: 0}

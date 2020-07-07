@@ -3,19 +3,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class BaseItemSlot : UISlot, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
 	[SerializeField] protected Image image;
 	[SerializeField] protected Text amountText;
 
+	public event Action<BaseItemSlot> OnRightClickEvent;
 	public event Action<BaseItemSlot> OnPointerEnterEvent;
 	public event Action<BaseItemSlot> OnPointerExitEvent;
-	public event Action<BaseItemSlot> OnRightClickEvent;
-
-	protected bool isPointerOver;
-
-	protected Color normalColor = Color.white;
-	protected Color disabledColor = new Color(1, 1, 1, 0);
 
 	protected Item _item;
 	public Item Item {

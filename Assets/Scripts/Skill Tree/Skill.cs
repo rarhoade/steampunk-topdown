@@ -4,10 +4,13 @@ using Kryz.CharacterStats;
 
 public abstract class Skill : ScriptableObject
 {
-    [SerializeField] string SkillName;
-    [SerializeField] Sprite Icon;
+    [SerializeField] public string SkillName;
+    [SerializeField] public Sprite Icon;
 
-    [SerializeField] List<Skill> PreReqSkills;
+    [SerializeField] public List<Skill> PreReqSkills;
+    public virtual void Destroy(){
+        Destroy(this);
+    }
 }
 
 [CreateAssetMenu(menuName="Skills/ActiveSkill")]
@@ -28,7 +31,12 @@ public class ActiveSkill : Skill
     public int GetStatIdx(){
         return (int)dropDown;
     }
+    
+    public virtual void ExecuteAction(Transform origin){
+
+    }
 }
+
 
 [CreateAssetMenu(menuName="Skills/PassiveSkill")]
 public class PassiveSkill : Skill

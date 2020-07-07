@@ -16,12 +16,13 @@ public class Character : MonoBehaviour
 	[Header("Public")]
 	public Inventory Inventory;
 	public EquipmentPanel EquipmentPanel;
+	public SkillWindow SkillWindow;
 
 	[Header("Serialize Field")]
 	[SerializeField] CraftingWindow craftingWindow;
 	[SerializeField] StatPanel statPanel;
 	[SerializeField] ItemTooltip itemTooltip;
-	[SerializeField] Image draggableItem;
+	[SerializeField] Image draggableIcon;
 	[SerializeField] DropItemArea dropItemArea;
 	[SerializeField] QuestionDialog reallyDropItemDialog;
 	[SerializeField] ItemSaveManager itemSaveManager;
@@ -30,6 +31,7 @@ public class Character : MonoBehaviour
 	[SerializeField] int playerNumber;
 
 	private BaseItemSlot dragItemSlot;
+	private BaseSkillSlot dragSkillSlot;
 
 	private void OnValidate()
 	{
@@ -56,15 +58,19 @@ public class Character : MonoBehaviour
 		craftingWindow.OnPointerExitEvent += HideTooltip;
 		// Begin Drag
 		Inventory.OnBeginDragEvent += BeginDrag;
+		SkillWindow.OnBeginDragEvent += BeginDrag;
 		EquipmentPanel.OnBeginDragEvent += BeginDrag;
 		// End Drag
 		Inventory.OnEndDragEvent += EndDrag;
+		SkillWindow.OnEndDragEvent += EndDrag;
 		EquipmentPanel.OnEndDragEvent += EndDrag;
 		// Drag
 		Inventory.OnDragEvent += Drag;
+		SkillWindow.OnDragEvent += Drag;
 		EquipmentPanel.OnDragEvent += Drag;
 		// Drop
 		Inventory.OnDropEvent += Drop;
+		SkillWindow.OnDropEvent += Drop;
 		EquipmentPanel.OnDropEvent += Drop;
 		dropItemArea.OnDropEvent += DropItemOutsideUI;
 	}
@@ -135,39 +141,70 @@ public class Character : MonoBehaviour
 		}
 	}
 
-	private void BeginDrag(BaseItemSlot itemSlot)
+	private void BeginDrag(UISlot uiSlot)
 	{
-		if (itemSlot.Item != null)
-		{
-			dragItemSlot = itemSlot;
-			draggableItem.sprite = itemSlot.Item.Icon;
-			draggableItem.transform.position = Input.mousePosition;
-			draggableItem.gameObject.SetActive(true);
+		if(uiSlot is BaseItemSlot){
+			BaseItemSlot itemSlot = uiSlot as BaseItemSlot;
+			if (itemSlot.Item != null)
+			{
+				dragItemSlot = itemSlot;
+				draggableIcon.sprite = itemSlot.Item.Icon;
+				draggableIcon.transform.position = Input.mousePosition;
+				draggableIcon.gameObject.SetActive(true);
+			}
 		}
+		else if (uiSlot is BaseSkillSlot){
+			BaseSkillSlot skillSlot = uiSlot as BaseSkillSlot;
+			if (skillSlot.Skill != null)
+			{
+				dragSkillSlot = skillSlot;
+				draggableIcon.sprite = skillSlot.Skill.Icon;
+				draggableIcon.transform.position = Input.mousePosition;
+				draggableIcon.gameObject.SetActive(true);
+			}
+		}	
 	}
 
-	private void Drag(BaseItemSlot itemSlot)
+	private void Drag(UISlot itemSlot)
 	{
-		draggableItem.transform.position = Input.mousePosition;
+		draggableIcon.transform.position = Input.mousePosition;
 	}
 
-	private void EndDrag(BaseItemSlot itemSlot)
+	private void EndDrag(UISlot itemSlot)
 	{
 		dragItemSlot = null;
-		draggableItem.gameObject.SetActive(false);
+		dragSkillSlot = null;
+		draggableIcon.gameObject.SetActive(false);
 	}
 
-	private void Drop(BaseItemSlot dropItemSlot)
+	private void Drop(UISlot dropUISlot)
 	{
-		if (dragItemSlot == null) return;
+		if(dropUISlot is BaseItemSlot){
+			BaseItemSlot dropItemSlot = dropUISlot as BaseItemSlot;
+			if (dragItemSlot == null) return;
 
-		if (dropItemSlot.CanAddStack(dragItemSlot.Item))
-		{
-			AddStacks(dropItemSlot);
+			if (dropItemSlot.CanAddStack(dragItemSlot.Item))
+			{
+				AddStacks(dropItemSlot);
+			}
+			else if (dropItemSlot.CanReceiveItem(dragItemSlot.Item) && dragItemSlot.CanReceiveItem(dropItemSlot.Item))
+			{
+				SwapItems(dropItemSlot);
+			}
 		}
-		else if (dropItemSlot.CanReceiveItem(dragItemSlot.Item) && dragItemSlot.CanReceiveItem(dropItemSlot.Item))
-		{
-			SwapItems(dropItemSlot);
+		else if(dropUISlot is BaseSkillSlot){
+			BaseSkillSlot dropSkillSlot = dropUISlot as BaseSkillSlot;
+			if(dragSkillSlot == null) return;
+
+			if(dropSkillSlot is UsableSkillSlot){
+				ActiveSkill holdSkill = dragSkillSlot.Skill as ActiveSkill;
+				if(dragSkillSlot is UsableSkillSlot){
+					SkillWindow.RemoveSkill(holdSkill);
+					if(dropSkillSlot.Skill)
+						SkillWindow.EquipSkill(dropSkillSlot.Skill as ActiveSkill, 0, dragSkillSlot as UsableSkillSlot);
+				}
+				SkillWindow.EquipSkill(holdSkill, 0, dropUISlot as UsableSkillSlot);
+			}
 		}
 	}
 
@@ -217,11 +254,18 @@ public class Character : MonoBehaviour
 
 	private void DropItemOutsideUI()
 	{
-		if (dragItemSlot == null) return;
-
-		reallyDropItemDialog.Show();
-		BaseItemSlot slot = dragItemSlot;
-		reallyDropItemDialog.OnYesEvent += () => DestroyItemInSlot(slot);
+		if (dragItemSlot == null && dragSkillSlot == null) return;
+		if(dragItemSlot){
+			//if dragging item, ask if you want to destroy it
+			reallyDropItemDialog.Show();
+			BaseItemSlot slot = dragItemSlot;
+			reallyDropItemDialog.OnYesEvent += () => DestroyItemInSlot(slot);
+		}
+		else if(dragSkillSlot){
+			//if dragging skill from usable skill slot, unequip it
+			if(dragSkillSlot is UsableSkillSlot)
+				SkillWindow.RemoveSkill(dragSkillSlot.Skill as ActiveSkill);
+		}
 	}
 
 	private void DestroyItemInSlot(BaseItemSlot itemSlot)
