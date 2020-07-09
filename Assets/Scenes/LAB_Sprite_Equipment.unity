@@ -4748,12 +4748,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 591378458}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &1889464662 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2268542314433812079, guid: f57e16de6a38fcb47ac73d2bfe138f9e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2103739490789366118}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2056684473
 GameObject:
   m_ObjectHideFlags: 0
@@ -5159,11 +5153,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2103739491835134723, guid: f57e16de6a38fcb47ac73d2bfe138f9e,
-        type: 3}
-      propertyPath: HandAnimator
-      value: 
-      objectReference: {fileID: 1889464662}
     - target: {fileID: 2103739491835134725, guid: f57e16de6a38fcb47ac73d2bfe138f9e,
         type: 3}
       propertyPath: m_Name
@@ -5209,11 +5198,6 @@ PrefabInstance:
       propertyPath: reallyDropItemDialog
       value: 
       objectReference: {fileID: 1128946013}
-    - target: {fileID: 2268542314433812079, guid: f57e16de6a38fcb47ac73d2bfe138f9e,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 075e324be880e524da994972e3e34b73, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f57e16de6a38fcb47ac73d2bfe138f9e, type: 3}
 --- !u!1001 &3809793184299376623

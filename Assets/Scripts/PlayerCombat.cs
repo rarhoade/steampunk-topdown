@@ -12,7 +12,7 @@ public class PlayerCombat : MonoBehaviour
     public GameObject sampleSkill;
     public Transform ShotOrigin;
     public Character c;
-    public GameObject Appendages;
+    public GameObject IdleHands;
     public delegate void SkillAction(Transform shot);
     public static List<SkillAction> SkillSlots;
 

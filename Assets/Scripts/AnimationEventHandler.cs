@@ -25,16 +25,26 @@ public class AnimationEventHandler : MonoBehaviour
         FreezeMovement();
         FreezeWeaponRotation();
         StopAttack();
+        HideIdleHands();
     }
 
     public void AttackEnd(){
         ResumeAttack();
         ResumeWeaponRotation();
         ContinueMovement();
+        ShowIdleHands();
     }
 
     public void StopAttack(){
         combatController.canAttack = false;
+    }
+
+    public void HideIdleHands(){
+        combatController.IdleHands.SetActive(false);
+    }
+
+    public void ShowIdleHands(){
+        combatController.IdleHands.SetActive(true);
     }
 
     public void ResumeAttack(){
