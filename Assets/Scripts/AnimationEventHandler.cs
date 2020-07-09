@@ -17,6 +17,7 @@ public class AnimationEventHandler : MonoBehaviour
         weaponController = GetComponentInParent<RotateToCursor>();
         rootObject = GetComponentInParent<PlayerMovement>();
         combatController = GetComponentInParent<PlayerCombat>();
+
     }
 
 

@@ -12,6 +12,7 @@ public class PlayerCombat : MonoBehaviour
     public GameObject sampleSkill;
     public Transform ShotOrigin;
     public Character c;
+    public GameObject Appendages;
     public delegate void SkillAction(Transform shot);
     public static List<SkillAction> SkillSlots;
 
@@ -27,26 +28,35 @@ public class PlayerCombat : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canAttack){
-            Attack();
-        }       
-        if(Input.GetMouseButtonDown(1) && canAttack){
-            /*Instantiate(sampleSkill, ShotOrigin.transform.position, ShotOrigin.rotation).
-                GetComponent<ProjectileSkill>().
-                Shoot(c.GetPlayerNumber());*/
+        if(canAttack){
+            if (Input.GetMouseButtonDown(0)){
+                Attack();
+            }       
+            if(Input.GetMouseButtonDown(1)){
+                Debug.Log("alt weapon");
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha1)){
+                SkillSlots[0](ShotOrigin);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha2)){
+                SkillSlots[1](ShotOrigin);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha3)){
+                SkillSlots[2](ShotOrigin);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha4)){
+                SkillSlots[3](ShotOrigin);
+            }
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha1)){
-            SkillSlots[0](ShotOrigin);
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha2)){
-            SkillSlots[1](ShotOrigin);
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha3)){
-            SkillSlots[2](ShotOrigin);
-        }
-        else if(Input.GetKeyDown(KeyCode.Alpha4)){
-            SkillSlots[3](ShotOrigin);
-        }
+        
+    }
+
+    public void HideArms(){
+
+    }
+
+    public void ShowArms(){
+
     }
 
     // Update is called once per frame
@@ -57,7 +67,6 @@ public class PlayerCombat : MonoBehaviour
     public void SetAnimator(Animator newAnimator){
         weaponAnimator = newAnimator;
     }
-
 
     public void RegisterSkill(SkillAction NewAction, int slot){
         //get rid of old skill

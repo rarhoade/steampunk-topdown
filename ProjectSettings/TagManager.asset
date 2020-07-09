@@ -47,11 +47,17 @@ TagManager:
   - name: Pant
     uniqueID: 1804691777
     locked: 0
+  - name: RightHand
+    uniqueID: 2721636367
+    locked: 0
   - name: Body
     uniqueID: 1031234849
     locked: 0
   - name: Chest
     uniqueID: 754910823
+    locked: 0
+  - name: LeftHand
+    uniqueID: 873979673
     locked: 0
   - name: Head
     uniqueID: 3791245165

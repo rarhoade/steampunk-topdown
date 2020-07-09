@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     public Animator LegAnimator;
 
+    public Animator HandAnimator;
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -45,9 +46,11 @@ public class PlayerMovement : MonoBehaviour
         }
         if(rb2d.velocity.x != 0 || rb2d.velocity.y != 0){
             LegAnimator.SetBool("Running", true);
+            HandAnimator.SetBool("Running", true);
         }
         else{
             LegAnimator.SetBool("Running", false);
+            HandAnimator.SetBool("Running", false);
         }
         
     }
