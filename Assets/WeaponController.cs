@@ -6,6 +6,7 @@ public class WeaponController : MonoBehaviour
 {
     [SerializeField] GameObject DefaultPrimaryWeapon;
     [SerializeField] GameObject DefaultSecondaryWeapon;
+    [SerializeField] EquipmentSpriteController equipmentSpriteController;
     public GameObject PrimaryWeapon;
     public GameObject SecondaryWeapon;
     public PlayerCombat combatControl;
@@ -18,9 +19,8 @@ public class WeaponController : MonoBehaviour
     public void EquipPrimaryWeapon(GameObject wep){
         if(PrimaryWeapon)
             Destroy(PrimaryWeapon);
-        PrimaryWeapon = Instantiate(wep);
+        PrimaryWeapon = Instantiate(wep, transform);
         PrimaryWeapon.transform.position = transform.position;
-        PrimaryWeapon.transform.parent = transform;
         combatControl.SetAnimator(PrimaryWeapon.GetComponent<Animator>());
         PrimaryWeapon.GetComponent<AnimationEventHandler>().InstantiateComponents();
     }
@@ -48,5 +48,9 @@ public class WeaponController : MonoBehaviour
         if(SecondaryWeapon)
             Destroy(SecondaryWeapon);
         EquipSecondaryWeapon(DefaultSecondaryWeapon);
+    }
+
+    public void RecieveHandRenderers(SpriteRenderer[] sprites){
+        equipmentSpriteController.SetHandSprites(sprites);
     }
 }

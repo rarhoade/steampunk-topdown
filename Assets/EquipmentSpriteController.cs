@@ -9,47 +9,71 @@ public class EquipmentSpriteController : MonoBehaviour
     public SpriteRenderer LowerBody;
     public SpriteRenderer RightLeg;
     public SpriteRenderer LeftLeg;
+    public SpriteRenderer LeftHand;
+    public SpriteRenderer RightHand;
+    public SpriteRenderer IdleRightHand;
+    public SpriteRenderer IdleLeftHand;
     
 
     // Update is called once per frame
     public void EquipItem(EquippableItem item){
-        if((int)item.EquipmentType == 0){
-            //equip helmet
-		}
-		else if((int)item.EquipmentType == 1){
-            //equip chest
-            UpdateUpperBodySprite(item.SpriteSet[0]);
-		}
-		else if((int)item.EquipmentType == 2){
-            //lower
-            UpdateLowerBodySprite(item.SpriteSet[0]);
-            UpdateLegSprites(item.SpriteSet[1], item.SpriteSet[2]);
-		}
-		else if((int)item.EquipmentType == 3){
-            //gloves
-            UpdateLegSprites(item.SpriteSet[0], item.SpriteSet[0]);
-		}
-    }
-
-    public void UnequipItem(EquippableItem item){
         switch((int)item.EquipmentType){
+            case 0:
+                //helmet
+                break;
             case 1:
                 //chest
-                UpdateUpperBodySprite(null);
+                UpdateUpperBodySprite(item.SpriteSet[0]);
                 break;
             case 2:
-                UpdateLowerBodySprite();
-                UpdateLegSprites();
+                //bottom
+                UpdateLowerBodySprite(item.SpriteSet[0]);
+                UpdateLegSprites(item.SpriteSet[1], item.SpriteSet[2]);
                 break;
             case 3:
                 //gloves
-                UpdateUpperBodySprite(null);
+                UpdateHandSprite(item.SpriteSet[0], item.SpriteSet[1]);
+                break;
+            case 4:
+                //boots
                 break;
             default:
                 break;
         }
     }
-    public void UpdateUpperBodySprite(Sprite sprite){
+
+    public void UnequipItem(EquippableItem item){
+        switch((int)item.EquipmentType){
+            case 0:
+                //helmet
+            case 1:
+                //chest
+                UpdateUpperBodySprite();
+                break;
+            case 2:
+                //bottoms
+                UpdateLowerBodySprite();
+                UpdateLegSprites();
+                break;
+            case 3:
+                //gloves
+                UpdateHandSprite();
+                break;
+            case 4:
+                //boots
+            default:
+                break;
+        }
+    }
+
+    public void UpdateHandSprite(Sprite lh=null, Sprite rh=null){
+        LeftHand.sprite = lh;
+        IdleLeftHand.sprite = lh;
+        RightHand.sprite = rh;
+        IdleRightHand.sprite = rh;
+    }
+
+    public void UpdateUpperBodySprite(Sprite sprite=null){
         UpperBody.sprite = sprite;
     }
 
@@ -60,5 +84,10 @@ public class EquipmentSpriteController : MonoBehaviour
     public void UpdateLegSprites(Sprite rightLeg=null, Sprite leftLeg=null){
         LeftLeg.sprite = rightLeg;
         RightLeg.sprite = leftLeg;
+    }
+    
+    public void SetHandSprites(SpriteRenderer[] sprites){
+        RightHand = sprites[0];
+        LeftHand = sprites[1];
     }
 }
