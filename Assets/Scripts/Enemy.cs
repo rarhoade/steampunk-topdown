@@ -7,9 +7,9 @@ using System.Collections.Generic;
 public class Enemy : MonoBehaviour
 {
     public int maxHealth;
-    private int currentHealth;
-    private SpriteRenderer sprite;
-    private Material material;
+    [SerializeField] private int currentHealth;
+    private SpriteRenderer[] sprite;
+    private List<Material> material;
     public float spriteEffectCount = 1f;
     private Rigidbody2D rb;
     public Action<Enemy> DamageEffectDelegate;
@@ -21,8 +21,11 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth; 
-        sprite = GetComponent<SpriteRenderer>();
-        material = sprite.material;
+        sprite = GetComponentsInChildren<SpriteRenderer>();
+        material = new List<Material>();
+        foreach(SpriteRenderer sp in sprite){
+            material.Add(sp.material);
+        }
         CanTakeDamage = true;
         rb = GetComponent<Rigidbody2D>();
     }
@@ -60,10 +63,14 @@ public class Enemy : MonoBehaviour
     private IEnumerator DamageBlink(){
         CanTakeDamage = false;
         //set blinking state
-        for(int i = 0; i < 5; i++){
-            material.SetFloat("_FlashAmount", 1f);
+        for(int i = 0; i < 4; i++){
+            foreach(Material mat in material){
+                mat.SetFloat("_FlashAmount", 1f);
+            }
             yield return new WaitForSeconds(0.1f);
-            material.SetFloat("_FlashAmount", 0f);
+            foreach(Material mat in material){
+                mat.SetFloat("_FlashAmount", 0f);
+            }
             yield return new WaitForSeconds(0.1f);
         }
         CanTakeDamage = true;

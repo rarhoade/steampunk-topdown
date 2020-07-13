@@ -89,5 +89,7 @@ public class EquipmentSpriteController : MonoBehaviour
     public void SetHandSprites(SpriteRenderer[] sprites){
         RightHand = sprites[0];
         LeftHand = sprites[1];
+        RightHand.sprite = IdleRightHand.sprite;
+        LeftHand.sprite = IdleLeftHand.sprite;
     }
 }

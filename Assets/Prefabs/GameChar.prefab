@@ -312,8 +312,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1804691777
-  m_SortingLayer: 2
+  m_SortingLayerID: 873979673
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -387,6 +387,7 @@ MonoBehaviour:
   DefaultPrimaryWeapon: {fileID: 11490022035348426, guid: f4b4ef9277c242940885f33eb3a02a49,
     type: 3}
   DefaultSecondaryWeapon: {fileID: 0}
+  equipmentSpriteController: {fileID: 838951375}
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
   combatControl: {fileID: 2103739491835134734}
@@ -661,6 +662,10 @@ MonoBehaviour:
   LowerBody: {fileID: 5361295799781677169}
   RightLeg: {fileID: 588084050}
   LeftLeg: {fileID: 1539405681}
+  LeftHand: {fileID: 0}
+  RightHand: {fileID: 0}
+  IdleRightHand: {fileID: 6809484198601048328}
+  IdleLeftHand: {fileID: 3701310138067052512}
 --- !u!1 &2103739491909548486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,8 +1226,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1804691777
-  m_SortingLayer: 2
+  m_SortingLayerID: -1573330929
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
