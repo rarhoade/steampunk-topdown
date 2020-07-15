@@ -5,6 +5,7 @@ public class ItemStash : ItemContainer
 	[SerializeField] Transform itemsParent;
 	[SerializeField] SpriteRenderer spriteRenderer;
 	[SerializeField] KeyCode openKeyCode = KeyCode.E;
+	[SerializeField] Item[] itemPile;
 
 	private bool isOpen;
 	private bool isInRange;
@@ -19,7 +20,7 @@ public class ItemStash : ItemContainer
 		if (spriteRenderer == null)
 			spriteRenderer = GetComponentInChildren<SpriteRenderer>(includeInactive: true);
 
-		spriteRenderer.enabled = false;
+		//spriteRenderer.enabled = false;
 	}
 
 	protected override void Awake()
@@ -67,7 +68,7 @@ public class ItemStash : ItemContainer
 		if (gameObject.CompareTag("Player"))
 		{
 			isInRange = state;
-			spriteRenderer.enabled = state;
+			//spriteRenderer.enabled = state;
 
 			if (!isInRange && isOpen)
 			{

@@ -4,14 +4,25 @@ public class InventoryInput : MonoBehaviour
 {
 	[SerializeField] GameObject characterPanelGameObject;
 	[SerializeField] GameObject equipmentPanelGameObject;
+	[SerializeField] GameObject skillPanelGameObject;
 	[SerializeField] KeyCode[] toggleCharacterPanelKeys;
 	[SerializeField] KeyCode[] toggleInventoryKeys;
+	[SerializeField] KeyCode[] toggleSkillKeys;
 	[SerializeField] bool showAndHideMouse = true;
 
 	void Update()
 	{
 		ToggleCharacterPanel();
 		ToggleInventory();
+		ToggleSkillPanel();
+	}
+
+	private void ToggleSkillPanel(){
+		for (int i = 0; i < toggleSkillKeys.Length; i++){
+			if(Input.GetKeyDown(toggleSkillKeys[i])){
+				skillPanelGameObject.SetActive(!skillPanelGameObject.activeSelf);
+			}
+		}
 	}
 
 	private void ToggleCharacterPanel()
