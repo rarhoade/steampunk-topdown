@@ -16,7 +16,6 @@ public class BuildingWindowView : MonoBehaviour
             new Vector2(other.transform.position.x, other.transform.position.y) 
         );
         lightAngle = (lightAngle * Mathf.Rad2Deg);
-        Debug.Log("Staying");
         if(lightAngle > -60){
             lightAngle = -60;
         } else if (lightAngle < -120){
@@ -26,7 +25,6 @@ public class BuildingWindowView : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D other){
-        Debug.Log("Exiting");
         gameLight.SetActive(false);
     }
 }
