@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 741092428334892761}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.9521, y: 15.0019, z: 0}
+  m_LocalPosition: {x: 0.11010003, y: -0.0020999908, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8733598161885472611}
@@ -132,7 +132,7 @@ MonoBehaviour:
   - {fileID: 7552470229049670381}
   - {fileID: 1618615375466994346}
   m_Bounds:
-    m_Center: {x: 0.00068499893, y: -0.0022049993, z: 0}
+    m_Center: {x: 0.0006849915, y: -0.0022049993, z: 0}
     m_Extent: {x: 0.064315006, y: 0.107795015, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -224,7 +224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2219919078045490091}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.904, y: 14.898, z: 0}
+  m_LocalPosition: {x: 0.062000036, y: -0.10599995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6364322254323011040}
@@ -300,8 +300,8 @@ MonoBehaviour:
   - {fileID: 1150084211097260332}
   - {fileID: 5962494471496796139}
   m_Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.04, y: 0.06, z: 0}
+    m_Center: {x: 0.0000000037252903, y: 0, z: 0}
+    m_Extent: {x: 0.04, y: 0.060000002, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &2555466328202325292
@@ -330,7 +330,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2555466328202325292}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.862, y: 15.004, z: 0}
+  m_LocalPosition: {x: 0.02, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2844292801984683360}
@@ -526,7 +526,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4445181639643594778}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.8504, y: 15.1294, z: 0}
+  m_LocalPosition: {x: 0.008399963, y: 0.12540054, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8494841003868692727}
@@ -603,8 +603,8 @@ MonoBehaviour:
   - {fileID: 8106829918917066234}
   - {fileID: 5631615650477592587}
   m_Bounds:
-    m_Center: {x: -0.000000007450581, y: -0.0006300062, z: 0}
-    m_Extent: {x: 0.08500002, y: 0.06937002, z: 0}
+    m_Center: {x: -0.000000014901161, y: -0.0006300062, z: 0}
+    m_Extent: {x: 0.08500004, y: 0.06937002, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4543768594018079147
@@ -788,7 +788,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7070744733227966620}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.796, y: 14.988, z: 0}
+  m_LocalPosition: {x: -0.046000004, y: -0.015999794, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7901932509568200085}
@@ -955,7 +955,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7901727157648230544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.8516, y: 14.8977, z: 0}
+  m_LocalPosition: {x: 0.009599924, y: -0.1062994, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5298729444116750441}
@@ -1031,8 +1031,8 @@ MonoBehaviour:
   - {fileID: 1249180860594497844}
   - {fileID: 5218136489841533261}
   m_Bounds:
-    m_Center: {x: 0.0000000037252903, y: 0, z: 0}
-    m_Extent: {x: 0.040000007, y: 0.06000001, z: 0}
+    m_Center: {x: 0.0000000037252903, y: -0.0000000037252903, z: 0}
+    m_Extent: {x: 0.040000014, y: 0.060000017, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &7922843630252615924
@@ -1166,8 +1166,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6477527034764741368}
-  - component: {fileID: 5877278390891587507}
-  - component: {fileID: 879335144623538755}
   - component: {fileID: 1294696711}
   m_Layer: 8
   m_Name: Orc
@@ -1185,7 +1183,7 @@ Transform:
   m_GameObject: {fileID: 8562581229599779961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 780060671151643817}
   - {fileID: 7935972830518213845}
@@ -1196,70 +1194,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5877278390891587507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8562581229599779961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  graphMask:
-    value: -1
---- !u!114 &879335144623538755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8562581229599779961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 2
-  radius: 0.5
-  height: 2
-  repathRate: 0.5
-  canSearch: 1
-  canMove: 1
-  maxSpeed: 1
-  gravity: {x: NaN, y: NaN, z: NaN}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  centerOffsetCompatibility: NaN
-  orientation: 1
-  enableRotation: 1
-  targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
-  rotationSpeed: 360
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 2
-  endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
-  slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
-  constrainInsideGraph: 0
 --- !u!95 &1294696711
 Animator:
   serializedVersion: 3

@@ -30,10 +30,10 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate(){
         if(canMove){
             if(movement.x > 0){
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.localScale = new Vector3(1,1,1);
             }
             else if(movement.x < 0){
-                transform.rotation = Quaternion.Euler(0, 180, 0);
+                transform.localScale = new Vector3(-1, 1, 1);
             }
             if(Input.GetKey(KeyCode.LeftShift))
                 rb2d.velocity = movement * speed * 1.5f;
