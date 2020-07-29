@@ -19,6 +19,9 @@ public class EnemyAI : MonoBehaviour
     Rigidbody2D rb;
     public Transform EnemyGFX;
     private Vector3 initScale;
+    public GameObject wanderNodesParent;
+    [SerializeField] private Vector3[] wanderNodes;
+    private int counter;
     void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -27,15 +30,28 @@ public class EnemyAI : MonoBehaviour
         //that will end up being enemygfx
         EnemyGFX = GetComponent<Transform>();
         initScale = EnemyGFX.localScale;
+        wanderNodes = new Vector3[wanderNodesParent.transform.childCount + 1];
+        counter = 0;
+        foreach(Transform loc in wanderNodesParent.GetComponentsInChildren<Transform>()){
+            wanderNodes[counter] = loc.position;
+            counter++;
+        }
+        counter = 0;
 
         InvokeRepeating("UpdatePath", 0f, .5f);
-        seeker.StartPath(rb.position, target.position, OnPathComplete);
+        seeker.StartPath(rb.position, wanderNodes[counter], OnPathComplete);
     }
 
 
     void UpdatePath(){
+        //Debug.Log(seeker.IsDone());
         if(seeker.IsDone())
-            seeker.StartPath(rb.position, target.position, OnPathComplete);
+            /*counter++;
+            Debug.Log(counter);
+            if(counter >= wanderNodes.Length)
+                counter = 0;*/
+            seeker.StartPath(rb.position, wanderNodes[counter], OnPathComplete);
+        //seeker.StartPath(rb.position, wanderNodes[counter], OnPathComplete);
     }
 
     void OnPathComplete(Path p)
@@ -43,8 +59,8 @@ public class EnemyAI : MonoBehaviour
         if(!p.error)
         {
             path = p;
-            currentWaypoint = 0;
         }
+        
     }
 
     // Update is called once per frame
@@ -56,6 +72,8 @@ public class EnemyAI : MonoBehaviour
         if(currentWaypoint >= path.vectorPath.Count)
         {
             reachedEndOfPath = true;
+            currentWaypoint = 0;
+            
             return;
         }
         else

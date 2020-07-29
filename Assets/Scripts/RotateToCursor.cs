@@ -15,27 +15,15 @@ public class RotateToCursor : MonoBehaviour
     {
         if(canRotate){
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
             //Debug.Log(mousePosition);
-            Vector2 direction = new Vector2 (
+            Vector3 direction = new Vector3 (
                 mousePosition.x - transform.position.x,
-                mousePosition.y - transform.position.y
+                mousePosition.y - transform.position.y,
+                0
             );
 
             transform.up = direction;
-            /*if(direction.x > 0){
-                transform.eulerAngles = new Vector3(
-                    0f,
-                    180f,
-                    Quaternion.Inverse(transform.rotation).eulerAngles.z
-                );
-            }
-            else{
-                transform.eulerAngles = new Vector3(
-                    0f,
-                    0f,
-                    transform.rotation.eulerAngles.z
-                );
-            }*/
         }
     }
 
