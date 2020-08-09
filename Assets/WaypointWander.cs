@@ -21,7 +21,6 @@ public class WaypointWander : MonoBehaviour
     [SerializeField] private float viewDistance;
     [SerializeField] private FieldOfView fieldOfView;
     [SerializeField] private GameObject fovPf;
-    
     [SerializeField] private LayerMask layerMask;
     
     //Pathfinding Variables
@@ -33,6 +32,7 @@ public class WaypointWander : MonoBehaviour
 
     Rigidbody2D rb;
     public GameObject wanderNodesParent;
+    Vector3 target;
 
     [SerializeField] private Vector3[] wanderNodes;
     private int counter;
@@ -53,7 +53,8 @@ public class WaypointWander : MonoBehaviour
             counter++;
         }
         counter = 0;
-        seeker.StartPath(rb.position, wanderNodes[counter], OnPathComplete);
+        target = wanderNodes[counter];
+        seeker.StartPath(rb.position, target, OnPathComplete);
         //Field of View Instantiation
         fieldOfView = Instantiate(fovPf, null).GetComponent<FieldOfView>();
         fieldOfView.SetFoV(fov);
