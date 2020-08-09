@@ -21,4 +21,8 @@ public class GameHandler : MonoBehaviour
     public float FetchCharStat(int PlayerIndex, int StatIdx){
         return PlayerCharacters[PlayerIndex].FetchStatOnEnum(StatIdx);
     }
+
+    public Vector3 GetPlayerTransform(){
+        return PlayerCharacters[0].transform.position;
+    }
 }

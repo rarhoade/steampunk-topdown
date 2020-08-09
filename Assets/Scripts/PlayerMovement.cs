@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator LegAnimator;
 
     public Animator HandAnimator;
+    
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -35,15 +36,18 @@ public class PlayerMovement : MonoBehaviour
             else if(movement.x < 0){
                 transform.localScale = new Vector3(-1, 1, 1);
             }
-            if(Input.GetKey(KeyCode.LeftShift))
+            if(Input.GetKey(KeyCode.LeftShift)){
                 rb2d.velocity = movement * speed * 1.5f;
-            else
+            }
+            else{
                 rb2d.velocity = movement * speed;
+            }
         }
         else{
             //Doing action, stop character movement
             rb2d.velocity = Vector2.zero;
         }
+
         if(rb2d.velocity.x != 0 || rb2d.velocity.y != 0){
             LegAnimator.SetBool("Running", true);
             HandAnimator.SetBool("Running", true);
@@ -52,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
             LegAnimator.SetBool("Running", false);
             HandAnimator.SetBool("Running", false);
         }
-        
     }
+
     
 }
