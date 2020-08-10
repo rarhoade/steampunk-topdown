@@ -11,6 +11,7 @@ public class WaypointWander : MonoBehaviour
         ChasingTarget,
         Investigating,
     }
+    Vector3 originalScale;
     [SerializeField] private State state;
     public float AwarenessLimit = 100f;
     public float AwarenessDecrement = 4f;
@@ -35,11 +36,14 @@ public class WaypointWander : MonoBehaviour
     Vector3 target;
 
     [SerializeField] private Vector3[] wanderNodes;
-    private int counter;
+    private int waypointCounter;
+    [SerializeField] private int investigationCounter;
     EnemyAI aI;
+    bool canMove = true;
     // Start is called before the first frame update
     void Start()
     {
+        originalScale = transform.localScale;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         //Delete later;
@@ -47,19 +51,80 @@ public class WaypointWander : MonoBehaviour
         aI.enabled = false;    
 
         wanderNodes = new Vector3[wanderNodesParent.transform.childCount + 1];
-        counter = 0;
+        waypointCounter = 0;
+        investigationCounter = 0;
         foreach(Transform loc in wanderNodesParent.GetComponentsInChildren<Transform>()){
-            wanderNodes[counter] = loc.position;
-            counter++;
+            wanderNodes[waypointCounter] = loc.position;
+            waypointCounter++;
         }
-        counter = 0;
-        target = wanderNodes[counter];
+        waypointCounter = 0;
+        target = wanderNodes[waypointCounter];
         seeker.StartPath(rb.position, target, OnPathComplete);
         //Field of View Instantiation
         fieldOfView = Instantiate(fovPf, null).GetComponent<FieldOfView>();
         fieldOfView.SetFoV(fov);
         fieldOfView.SetViewDistance(viewDistance);
         state = State.Roaming;
+    }
+
+    void FixedUpdate(){
+        currentAwareness -= AwarenessDecrement;
+        if(currentAwareness < 0)
+            currentAwareness = 0;
+        
+        switch(state) {
+            case State.Roaming:
+                WalkTowardsTarget();
+                break;
+            case State.ChasingTarget:
+                WalkTowardsTarget();
+                break;
+            case State.Investigating:
+                if(investigationCounter == 0){
+                    CalculateNextTarget();
+                    seeker.StartPath(transform.position, target, OnPathComplete);
+                }
+                WalkTowardsTarget();
+                break;
+            default:
+                WalkTowardsTarget();
+                break;
+        }
+    }
+
+    //targetTransform is meant to be a way insert a chasingTarget transform
+    //It is done through CalculateNextTarget because this will scrub for the right state
+    void CalculateNextTarget(Transform targetTransform=null){
+        switch(state) {
+            case State.Roaming:
+                if(wanderNodes.Length > 0){
+                    waypointCounter++;
+                    if(waypointCounter >= wanderNodes.Length)
+                        waypointCounter = 0;
+                    target = wanderNodes[waypointCounter];
+                }
+                else{
+                    target = GetRoamingPosition();
+                }
+                break;
+            case State.ChasingTarget:
+                target = targetTransform.position;
+                break;
+            case State.Investigating:
+                if(investigationCounter < 3){
+                    StartCoroutine("Investigate");
+                    target = GetRoamingPosition();   
+                    investigationCounter++;
+                }
+                else{
+                    investigationCounter = 0;
+                    state = State.Roaming;
+                }
+                break;
+            default:
+                target = GetRoamingPosition();
+                break;
+        }
     }
 
     void OnPathComplete(Path p)
@@ -70,30 +135,16 @@ public class WaypointWander : MonoBehaviour
         }
     }
 
-
-    void FixedUpdate(){
-        currentAwareness -= AwarenessDecrement;
-        switch(state) {
-            case State.Roaming:
-                WalkTowardsTarget();
-                break;
-            case State.ChasingTarget:
-                WalkTowardsTarget();
-                break;
-            case State.Investigating:
-                Investigate();
-                state = State.Roaming;
-                break;
-            default:
-                WalkTowardsTarget();
-                break;
-        }
-    }
-
     void ViewCone(Vector2 direction){
         fieldOfView.SetOrigin(transform.position);
         fieldOfView.SetAimDirection(direction);
-        FindTargetPlayer(direction);
+        if(direction.x > 0){
+            transform.localScale = originalScale;
+        }
+        else {
+            transform.localScale = Vector3.Scale(originalScale, new Vector3(-1 , 1, 1));
+        }
+        FindTargetPlayer(direction, 5f);
     }
 
     public void AddAwareness(float a, Transform source=null){
@@ -115,33 +166,42 @@ public class WaypointWander : MonoBehaviour
 
     void WalkTowardsTarget()
     {
-        if(path == null)
-            return;
-        if(currentWaypoint >= path.vectorPath.Count)
-        {
-            currentWaypoint = 0;
-            path = null;
-            counter++; 
-            if(counter >= wanderNodes.Length)
-                counter = 0;
-            seeker.StartPath(rb.position, wanderNodes[counter], OnPathComplete);
-            return;
+        if(canMove){
+            if(path == null)
+                return;
+            if(currentWaypoint >= path.vectorPath.Count)
+            {
+                currentWaypoint = 0;
+                path = null;
+                CalculateNextTarget();
+                seeker.StartPath(rb.position, target, OnPathComplete);
+                return;
+            }
+            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+            Vector2 force = direction * speed * Time.deltaTime;
+            rb.AddForce(force);
+            
+            //viewcone
+            ViewCone(direction);
+            
+            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+            if(distance < nextWaypointDistance) {
+                currentWaypoint++;
+            }
         }
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
-        rb.AddForce(force);
-        
-        //viewcone
-        ViewCone(direction);
-        
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-        if(distance < nextWaypointDistance) {
-            currentWaypoint++;
+        else{
+            rb.velocity = Vector2.zero;
         }
     }
 
-    void Investigate(){
-        seeker.StartPath(transform.position, GetRoamingPosition(), OnPathComplete);
+    IEnumerator Investigate(){
+        canMove = false;
+        yield return new WaitForSeconds(1f);
+        ViewCone(GetRandomDir());
+        yield return new WaitForSeconds(1f);
+        ViewCone(GetRandomDir());
+        yield return new WaitForSeconds(1f);
+        canMove = true;
     }
 
     public static Vector3 GetRandomDir() {
@@ -152,7 +212,7 @@ public class WaypointWander : MonoBehaviour
         return transform.position + GetRandomDir() * Random.Range(5f, 10f);
     }
 
-    private void FindTargetPlayer(Vector2 direction){
+    private bool FindTargetPlayer(Vector2 direction, float awarenessIncrement=0f){
         //Debug.Log(Vector3.Distance(transform.position, GameHandler.Instance.GetPlayerTransform()));
         float distToPlayer = Vector3.Distance(transform.position, GameHandler.Instance.GetPlayerTransform());
         if(distToPlayer < viewDistance){
@@ -160,9 +220,11 @@ public class WaypointWander : MonoBehaviour
             if(Vector3.Angle(direction, dirToPlayer) < fov / 2f){
                 RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, dirToPlayer, viewDistance, layerMask);
                 if(raycastHit2D.collider && raycastHit2D.collider.gameObject.tag == "Player"){
-                    AddAwareness(viewDistance - distToPlayer);
+                    AddAwareness(awarenessIncrement * ((viewDistance - distToPlayer)/viewDistance));
+                    return true;
                 }
             }
         }
+        return false;
     }
 }
