@@ -10,6 +10,7 @@ public class WaypointWander : MonoBehaviour
         Roaming,
         ChasingTarget,
         Investigating,
+        LookingAround,
     }
     Vector3 originalScale;
     [SerializeField] private State state;
@@ -59,7 +60,7 @@ public class WaypointWander : MonoBehaviour
         }
         waypointCounter = 0;
         target = wanderNodes[waypointCounter];
-        seeker.StartPath(rb.position, target, OnPathComplete);
+        CalculatePath();
         //Field of View Instantiation
         fieldOfView = Instantiate(fovPf, null).GetComponent<FieldOfView>();
         fieldOfView.SetFoV(fov);
@@ -80,11 +81,9 @@ public class WaypointWander : MonoBehaviour
                 WalkTowardsTarget();
                 break;
             case State.Investigating:
-                if(investigationCounter == 0){
-                    CalculateNextTarget();
-                    seeker.StartPath(transform.position, target, OnPathComplete);
-                }
                 WalkTowardsTarget();
+                break;
+            case State.LookingAround:
                 break;
             default:
                 WalkTowardsTarget();
@@ -106,18 +105,20 @@ public class WaypointWander : MonoBehaviour
                 else{
                     target = GetRoamingPosition();
                 }
+                CalculatePath();
                 break;
             case State.ChasingTarget:
                 target = targetTransform.position;
                 break;
             case State.Investigating:
                 if(investigationCounter < 3){
-                    StartCoroutine("Investigate");
-                    target = GetRoamingPosition();   
-                    investigationCounter++;
+                    if(targetTransform)
+                        target = targetTransform.position;
+                    else
+                        target = GetRoamingPosition();   
+                    CalculatePath();
                 }
                 else{
-                    investigationCounter = 0;
                     state = State.Roaming;
                 }
                 break;
@@ -160,23 +161,20 @@ public class WaypointWander : MonoBehaviour
         }
         else if(currentAwareness > AwarenessLimit * 0.7){
             //time to investigate
+            investigationCounter = 0;
             state = State.Investigating;
+            if(source){
+                CalculateNextTarget(source);
+            }
+            
         }
     }
 
     void WalkTowardsTarget()
     {
         if(canMove){
-            if(path == null)
+            if(CheckPathing())
                 return;
-            if(currentWaypoint >= path.vectorPath.Count)
-            {
-                currentWaypoint = 0;
-                path = null;
-                CalculateNextTarget();
-                seeker.StartPath(rb.position, target, OnPathComplete);
-                return;
-            }
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
             Vector2 force = direction * speed * Time.deltaTime;
             rb.AddForce(force);
@@ -194,14 +192,57 @@ public class WaypointWander : MonoBehaviour
         }
     }
 
-    IEnumerator Investigate(){
+    IEnumerator LookingAround(){
+        //looking around
+        rb.velocity = Vector2.zero;
         canMove = false;
-        yield return new WaitForSeconds(1f);
-        ViewCone(GetRandomDir());
-        yield return new WaitForSeconds(1f);
-        ViewCone(GetRandomDir());
-        yield return new WaitForSeconds(1f);
+        float time = 2f;
+        float counter = 0f;
+        for(int i = 0; i < 3; i++){
+            Vector3 newDirection = GetRandomDir();
+            while(counter < time){
+                counter += Time.deltaTime;
+                ViewCone(newDirection);
+                yield return null;
+            }
+            counter = 0;
+        }
+        investigationCounter++;
+        //Go back to investigating
+        if(investigationCounter < 3){
+            state = State.Investigating;
+        }
+        else {
+        //If we've hit the cap on investigating go back to roaming
+            investigationCounter = 0;
+            state = State.Roaming;
+        }
+        CalculateNextTarget();
         canMove = true;
+    }
+
+    bool CheckPathing(){
+        if(path == null)
+            return true;
+        if(currentWaypoint >= path.vectorPath.Count)
+        {
+            currentWaypoint = 0;
+            path = null;
+            if(state == State.Investigating){
+                state = State.LookingAround;
+                StartCoroutine("LookingAround");
+            }
+            else{
+                CalculateNextTarget();
+                CalculatePath();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    void CalculatePath(){
+        seeker.StartPath(rb.position, target, OnPathComplete);
     }
 
     public static Vector3 GetRandomDir() {

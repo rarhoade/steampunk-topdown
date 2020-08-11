@@ -514,6 +514,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   footstepRadius: 1
+  AwarenessIncrement: 3
 --- !u!1 &157533620
 GameObject:
   m_ObjectHideFlags: 0
@@ -7594,6 +7595,14 @@ PrefabInstance:
     - target: {fileID: 1294696710, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
       propertyPath: viewDistance
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294696710, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
+      propertyPath: AwarenessLimit
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294696710, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
+      propertyPath: AwarenessDecrement
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1294696713, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
       propertyPath: target
