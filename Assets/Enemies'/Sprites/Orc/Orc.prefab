@@ -668,7 +668,7 @@ MonoBehaviour:
   - {fileID: 8106829918917066234}
   - {fileID: 5631615650477592587}
   m_Bounds:
-    m_Center: {x: -0.000000022351742, y: -0.0006300062, z: 0}
+    m_Center: {x: -0.000000029802322, y: -0.0006300062, z: 0}
     m_Extent: {x: 0.08500002, y: 0.06937002, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1098,7 +1098,7 @@ MonoBehaviour:
   - {fileID: 1249180860594497844}
   - {fileID: 5218136489841533261}
   m_Bounds:
-    m_Center: {x: 0.000000007450581, y: -0.0000000037252903, z: 0}
+    m_Center: {x: 0.0000000037252903, y: -0.0000000037252903, z: 0}
     m_Extent: {x: 0.040000014, y: 0.060000017, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1236,9 +1236,8 @@ GameObject:
   - component: {fileID: 1294696711}
   - component: {fileID: 417726013712079809}
   - component: {fileID: 1294696715}
-  - component: {fileID: 1294696710}
   - component: {fileID: 1294696712}
-  - component: {fileID: 1294696713}
+  - component: {fileID: 3010810728693235591}
   m_Layer: 8
   m_Name: Orc
   m_TagString: Untagged
@@ -1323,30 +1322,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
---- !u!114 &1294696710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8562581229599779961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96aaaca99c156584b92e3400de153863, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fov: 70
-  viewDistance: 2
-  fieldOfView: {fileID: 0}
-  fovPf: {fileID: 8877292891534163322, guid: 74223798eff60e14ebf6518da87e4f30, type: 3}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  speed: 200
-  nextWaypointDistance: 2
-  currentWaypoint: 0
-  wanderNodesParent: {fileID: 1952723262}
-  wanderNodes: []
 --- !u!114 &1294696712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1375,7 +1350,7 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &1294696713
+--- !u!114 &3010810728693235591
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1387,12 +1362,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523d2b1c045967d48a43adde16505a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  state: 0
+  AwarenessLimit: 100
+  AwarenessDecrement: 4
+  currentAwareness: 0
+  fov: 0
+  viewDistance: 0
+  fieldOfView: {fileID: 0}
+  fovPf: {fileID: 8877292891534163322, guid: 74223798eff60e14ebf6518da87e4f30, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
   speed: 200
-  nextWaypointDistance: 0.2
-  EnemyGFX: {fileID: 0}
+  nextWaypointDistance: 3
+  currentWaypoint: 0
   wanderNodesParent: {fileID: 1952723262}
   wanderNodes: []
+  investigationCounter: 0
 --- !u!1 &9077873047992179979
 GameObject:
   m_ObjectHideFlags: 0

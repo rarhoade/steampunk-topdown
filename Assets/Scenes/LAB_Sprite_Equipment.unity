@@ -7588,26 +7588,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1294696710, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
-      propertyPath: fov
-      value: 130
+    - target: {fileID: 83838769, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6
       objectReference: {fileID: 0}
-    - target: {fileID: 1294696710, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
-      propertyPath: viewDistance
-      value: 4
+    - target: {fileID: 83838769, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.44
       objectReference: {fileID: 0}
-    - target: {fileID: 1294696710, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
-      propertyPath: AwarenessLimit
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1294696710, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
-      propertyPath: AwarenessDecrement
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1294696713, guid: e1eacda22ddbf2d4989105b812e98e4e, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1321032292}
     - target: {fileID: 6477527034764741368, guid: e1eacda22ddbf2d4989105b812e98e4e,
         type: 3}
       propertyPath: m_LocalPosition.x
