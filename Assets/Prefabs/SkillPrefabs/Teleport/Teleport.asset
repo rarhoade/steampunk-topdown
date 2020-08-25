@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fcc2ad778ee0f842b54aca1ee4e562a, type: 3}
+  m_Name: Teleport
+  m_EditorClassIdentifier: 
+  SkillName: Teleport
+  Icon: {fileID: 21300000, guid: 461773893c148344a8ee7401e26d712e, type: 3}
+  PreReqSkills: []
+  ScaleValue: 0
+  BaseDamage: 0
+  dropDown: 4
+  referenceSkill: {fileID: 0}
+  distance: 3
