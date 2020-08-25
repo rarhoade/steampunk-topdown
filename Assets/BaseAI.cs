@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyAI: MonoBehaviour
+public class BaseAI : MonoBehaviour
 {
     //State control variables
     private enum State {

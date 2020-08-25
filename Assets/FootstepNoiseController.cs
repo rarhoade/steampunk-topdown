@@ -13,7 +13,7 @@ public class FootstepNoiseController : MonoBehaviour
         Collider2D[] soundColliders; 
         soundColliders = Physics2D.OverlapCircleAll(transform.position, footstepRadius, soundLayerMask);
         foreach(var soundCollider in soundColliders){
-            var comp = soundCollider.gameObject.GetComponent<EnemyAI>();
+            var comp = soundCollider.gameObject.GetComponent<BaseAI>();
             if(comp)
                 comp.AddAwareness(AwarenessIncrement, this.transform);
         }
